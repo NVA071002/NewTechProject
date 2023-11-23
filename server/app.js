@@ -1,4 +1,7 @@
 const express=require('express');
+const dotenv = require('dotenv');
+dotenv.config()
+
 const bodyParser=require('body-parser');
 const morgan=require('morgan');
 const port=process.env.PORT || 8000;
@@ -14,6 +17,10 @@ app.use(cors({ credentials: true, origin: true }));
 
 db.connect();
 route(app);
+
+app.get('/', (req, res)=> {
+    return res.send('This is backend server')
+})
 
 app.listen(port,()=>{
 console.log(`listening on port ${port} ...`);
