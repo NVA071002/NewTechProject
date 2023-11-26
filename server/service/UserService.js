@@ -1,6 +1,6 @@
 const UserModel = require("../models/UserModel");
 const bcrypt = require("bcrypt");
-const jwtService = require("./JwtService")
+const jwtService = require("./JwtService");
 
 const createUser = (newUser) => {
   return new Promise(async (resolve, reject) => {
@@ -17,8 +17,7 @@ const createUser = (newUser) => {
         });
       }
       const hashPassword = bcrypt.hashSync(password, 10);
-      console.log(hashPassword);
-
+      // console.log(hashPassword);
       const createdUser = await UserModel.create({
         username,
         password: hashPassword,
@@ -30,7 +29,7 @@ const createUser = (newUser) => {
           data: createdUser,
         });
       } else {
-        console.log(`error o day`);
+        console.log(`error`);
       }
     } catch (e) {
       reject(e);
@@ -62,20 +61,116 @@ const loginUser = (loginInfor) => {
         });
       }
       const access_token = await jwtService.generalAccessToken({
+        id: existedUser.id,
         username: existedUser.username,
-        password: existedUser.password
+        password: existedUser.password,
+        role: existedUser.role,
       });
 
       console.log(access_token);
       const refresh_token = await jwtService.generalRefreshToken({
+        id: existedUser.id,
         username: existedUser.username,
-        password: existedUser.password
+        password: existedUser.password,
+        role: existedUser.role,
       });
       resolve({
         status: "OK",
         message: "LOGIN SUCESS",
         access_token: access_token,
-        refresh_token: refresh_token
+        refresh_token: refresh_token,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+const update = (id, data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const existedUser = await UserModel.findOne({
+        _id: id,
+      });
+      // console.log('existed User', existedUser);
+      if (existedUser === null) {
+        resolve({
+          status: 200,
+          message: "Username is not existed",
+        });
+      }
+      const updatedUser = await UserModel.findByIdAndUpdate(id, data, {
+        new: true,
+      });
+      console.log("updatedUser", updatedUser);
+
+      resolve({
+        status: "OK",
+        message: "UPDATE_SUCESS",
+        data: updatedUser,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+const deleteUser = (id, data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const existedUser = await UserModel.findOne({
+        _id: id,
+      });
+      // console.log('existed User', existedUser);
+      if (existedUser === null) {
+        resolve({
+          status: 200,
+          message: "Username is not existed",
+        });
+      }
+      const deletedUser = await UserModel.findByIdAndDelete(id, data, {
+        new: true,
+      });
+      console.log("deletedUser", deletedUser);
+
+      resolve({
+        status: "OK",
+        message: "DELETE_SUCESS",
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+const getAll = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const allUser = await UserModel.find();
+      resolve({
+        status: "OK",
+        message: "SUCESS",
+        data: allUser,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+const getDetailUser = (id, data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const existedUser = await UserModel.findOne({
+        _id: id,
+      });
+      // console.log('existed User', existedUser);
+      if (existedUser === null) {
+        resolve({
+          status: 200,
+          message: "User is not existed",
+        });
+      }
+      resolve({
+        status: "OK",
+        message: "SUCESS",
+        data: existedUser
       });
     } catch (e) {
       reject(e);
@@ -85,4 +180,8 @@ const loginUser = (loginInfor) => {
 module.exports = {
   createUser,
   loginUser,
+  update,
+  deleteUser,
+  getAll,
+  getDetailUser
 };
