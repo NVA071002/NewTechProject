@@ -1,6 +1,7 @@
 const User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 const UserService = require("../service/UserService");
+const jwtService = require("../service/JwtService");
 
 const login = async (req, res, next) => {
   try {
@@ -120,4 +121,21 @@ const getDetailUser = async (req, res, next) => {
     });
   }
 };
-module.exports = { login, register, update,deleteUser, getAll, getDetailUser, add };
+const refreshToken = async (req, res, next) => {
+  try {
+    const token = req.headers.token.split(' ')[1];
+    if (!token) {
+      return res.status(200).json({
+        status: "ERROR",
+        message: "The token is required",
+      });
+    }
+    const response = await jwtService.refreshTokenJwt(token);
+    return res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({
+      message: error,
+    });
+  }
+};
+module.exports = { login, register, update,deleteUser, getAll, getDetailUser, add, refreshToken };

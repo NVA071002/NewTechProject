@@ -177,11 +177,13 @@ const getDetailUser = (id, data) => {
     }
   });
 };
+
 module.exports = {
   createUser,
   loginUser,
   update,
   deleteUser,
   getAll,
-  getDetailUser
+  getDetailUser,
+  
 };

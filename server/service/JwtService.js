@@ -23,7 +23,38 @@ const generalRefreshToken = async (payload) => {
   );
   return refresh_token;
 };
+const refreshTokenJwt =  (token) => {
+  return new Promise( (resolve, reject) => {
+    try {
+      jwt.verify(token, process.env.REFRESH_TOKEN, async (err, user) => {
+        if (err) {
+          resolve({
+            status: "ERROR",
+            message: "Authentication",
+          });
+        }
+        const { payload } = user;
+        const newAccessToken =  await generalAccessToken({
+          id: payload?.id,
+          username: payload?.username,
+          password: payload?.password,
+          role: payload?.role,
+        });
+        console.log(' HERE', newAccessToken);
+        resolve({
+          status: "OK",
+          message: "SUCESS",
+          newAccessToken
+        });
+      });
+      
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   generalAccessToken,
   generalRefreshToken,
+  refreshTokenJwt,
 };
