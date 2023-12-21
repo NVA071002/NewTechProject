@@ -1,0 +1,25 @@
+#Banner{
+    position: relative;
+    margin-bottom: 20px;
+    .banner-wrapper {
+        width: 80%;  
+        position: relative;   
+        left: 50%;
+        transform: translateX(-50%);
+        img{     
+            object-fit: cover; 
+            background-color: (rgba(0,0,0,.6),rgba(0,0,0,.5));
+            height: 100%;
+            width: 100%;                        
+        }
+        h2{
+            font-size: 60px;
+        }
+        .banner-content{
+            text-align: center;
+            z-index: 3;
+            top: -40%;
+           
+        }
+    }
+}

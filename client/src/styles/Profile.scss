@@ -1,0 +1,33 @@
+#profile{
+  .wrapper{
+      margin-top: 30px;
+  }
+  .profile-img-container { 
+      // profile image
+      .profile-img {
+        height: 10rem;
+        width: 10rem;
+        object-fit: cover;
+        border: 0.357rem solid white;
+        background-color: white;
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--box-shadow);
+      }
+    }
+    .btn-edit{
+      position: relative;
+      height: 50px;
+      width: 100px;
+      background-color: var(--color-hover);
+      color: white;
+      border-radius: 15px;
+      align-items: center;
+      text-align: center;
+      .btn-text{
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+  
+    }
+}

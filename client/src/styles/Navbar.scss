@@ -1,0 +1,43 @@
+.navbar-navb{
+    height: 100% ;
+    margin-right: 50px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+      .navb-item{
+        box-sizing: border-box;
+        height: 44px;
+        position: relative;
+        z-index: 1;
+        
+      }
+      .navb-item:hover .dropdown{
+        visibility: visible;  
+      } 
+      .dropdown{
+        width: 300px;
+        padding: 10px;
+        color:black;
+        position: absolute; 
+        top: 45px;
+        background-color: white ;
+        visibility: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.5);
+        .dropdown-item{
+          padding: 10px;
+          color: black;
+          font-weight: 500;
+         
+        }
+      }
+   
+      .navb-link{
+          font-weight: 900;
+          font-size: 20px;
+          padding-left: 20px;
+          padding-right: 20px;
+          font-weight: 400;
+          text-decoration: none;
+      }
+  } 
