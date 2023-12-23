@@ -1,20 +1,25 @@
 {
-  "name": "ittopicmanagement",
+  "name": "newtechproject",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --inspect ./app.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/leythien2002/ItTopicManagement.git"
-  },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/leythien2002/ItTopicManagement/issues"
-  },
-  "homepage": "https://github.com/leythien2002/ItTopicManagement#readme"
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "bson": "^6.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.0.2",
+    "validator": "^13.11.0"
+  }
 }

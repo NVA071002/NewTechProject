@@ -1,2 +1,0 @@
-# NewTechProject
-NewTechProject
